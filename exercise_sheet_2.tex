@@ -1,0 +1,158 @@
+\section{Exercise sheet 2}
+\subsection{Exercise 1 (Tensor Product of Pauli matrices)}\noindent
+Done in Mathematica with the following code
+\begin{verbatim}
+MatrixForm /@ {KroneckerProduct[Pauli[3], Pauli[0]], 
+  KroneckerProduct[Pauli[0], Pauli[3]], 
+  KroneckerProduct[Pauli[1], Pauli[1]]}
+\end{verbatim}
+and the output is
+\begin{align}
+\qty{
+\left(
+\begin{array}{cccc}
+ 1 & 0 & 0 & 0 \\
+ 0 & 1 & 0 & 0 \\
+ 0 & 0 & -1 & 0 \\
+ 0 & 0 & 0 & -1 \\
+\end{array}
+\right),
+\left(
+\begin{array}{cccc}
+ 1 & 0 & 0 & 0 \\
+ 0 & -1 & 0 & 0 \\
+ 0 & 0 & 1 & 0 \\
+ 0 & 0 & 0 & -1 \\
+\end{array}
+\right),
+\left(
+\begin{array}{cccc}
+ 0 & 0 & 0 & 1 \\
+ 0 & 0 & 1 & 0 \\
+ 0 & 1 & 0 & 0 \\
+ 1 & 0 & 0 & 0 \\
+\end{array}
+\right)}.
+\end{align}
+
+\subsection{Exercise 2 (Transpose, conjugate and dagger of tensor
+products)}
+\begin{align}
+\qty(V\otimes W)^*=\mqty(V_{00}W&\dots&V_{0N}W\\ 
+\vdots&\ddots&\vdots\\ V_{M0}W&\dots&V_{MN}W)^*=
+\mqty(V_{00}^*W^*&\dots&V_{0N}^*W^*\\ 
+\vdots&\ddots&\vdots\\
+V_{M0}^*W^*&\dots&V_{MN}^*W^*)=V^*\otimes W^*
+\end{align}
+
+\begin{subequations}
+\begin{align}
+\qty(V\otimes W)^t&=\mqty(V_{00}W&\dots&V_{0N}W\\ 
+\vdots&\ddots&\vdots\\ V_{M0}W&\dots&V_{MN}W)^t=
+\mqty(V_{00}W_{00}&\dots&V_{00}W_{0q}&\dots&V_{0n}W_{00}&\dots&V_{0n}W_{0q}\\ 
+\vdots&\ddots&\vdots&\ddots&\vdots&\ddots&\vdots\\
+V_{00}W_{p0}&\dots&V_{00}W_{pq}&\dots&V_{0n}W_{p0}&\dots&V_{0n}W_{pq}\\ 
+\vdots&\ddots&\vdots&\ddots&\vdots&\ddots&\vdots\\
+V_{m0}W_{00}&\dots&V_{m0}W_{0q}&\dots&V_{mn}W_{00}&\dots&V_{mn}W_{0q}\\ 
+\vdots&\ddots&\vdots&\ddots&\vdots&\ddots&\vdots\\
+V_{m0}W_{p0}&\dots&V_{m0}W_{pq}&\dots&V_{mn}W_{p0}&\dots&V_{mn}W_{pq})^t\\
+&=\mqty(V_{00}W_{00}&\dots&V_{00}W_{p0}&\dots&V_{m0}W_{00}&\dots&V_{m0}W_{p0}\\ 
+\vdots&\ddots&\vdots&\ddots&\vdots&\ddots&\vdots\\
+V_{00}W_{0q}&\dots&V_{00}W_{pq}&\dots&V_{m0}W_{0q}&\dots&V_{m0}W_{pq}\\ 
+\vdots&\ddots&\vdots&\ddots&\vdots&\ddots&\vdots\\
+V_{0n}W_{00}&\dots&V_{0n}W_{p0}&\dots&V_{mn}W_{00}&\dots&V_{mn}W_{p0}\\ 
+\vdots&\ddots&\vdots&\ddots&\vdots&\ddots&\vdots\\
+V_{0n}W_{0q}&\dots&V_{0n}W_{pq}&\dots&V_{mn}W_{0q}&\dots&V_{mn}W_{pq})
+=V^t\otimes W^t
+\end{align}
+\end{subequations}
+
+De los dos resultados anteriores es evidente que 
+\begin{align}
+\qty(V\otimes W)^{\dagger}=\qty(\qty(V\otimes W)^{t})^*
+=\qty(V^t\otimes W^{t})^*=\qty(V^t)^*\otimes \qty(W^t)^*
+=V^{\dagger}\otimes W^{\dagger}.
+\end{align}
+
+\subsection{Exercise 3 (Tensor product of unitary matrices)}
+\begin{align}
+\qty(U_1\otimes U_2)\qty(U_1\otimes U_2)^{\dagger}=
+U_1U_1^{\dagger}\otimes U_2¸U_2^{\dagger}=
+U_1^{\dagger}U_1\otimes U_2^{\dagger}U_2=I_1\otimes I_2
+\end{align}
+
+\subsection{Exercise 4 (Tensor product of Hermitian matrices)}
+As a consequence of exercise 2,
+$\qty(H_1\otimes H_2)^t=H_1^{\dagger}\otimes H_2^{\dagger}.$
+Now, if $H_i$ are each Hermitian, then $\qty(H_1\otimes H_2)^t
+=H_1\otimes H_2$, and $H_1\otimes H_2$ is Hermitian.
+
+\subsection{Exercise 5 (Vector representation of the basis)}
+\begin{verbatim}
+MatrixForm /@ (computationalBasis = {Ket[0], Ket[1]})
+Flatten[KroneckerProduct[computationalBasis[[#[[1]]]], 
+     computationalBasis[[#[[2]]]]]] & /@
+  Tuples[Range[2], 2];
+MatrixForm /@ %
+\end{verbatim}
+Output:
+\begin{align}
+\qty{\mqty(1\\0\\0\\0),\mqty(0\\1\\0\\0),\mqty(0\\0\\1\\0),\mqty(0\\0\\0\\1)}
+\end{align}
+
+\subsection{Exercise 6 ($n$-qubit systems)}\noindent
+There are $2^n$ elements in the basis of the Hilbert space.
+
+\subsection{Exercise 7 (Expectation value)}
+\begin{align}
+\expval{Z\otimes Z}=\abs{c_{00}}^2-\abs{c_{01}}^2-\abs{c_{10}}^2+\abs{c_{11}}^2
+\end{align}
+
+\subsection{Exercise 8 (Marginal Probability)}
+\textcolor{red}{Duda}
+
+\subsection{Exercise 9 (Expectation value 2)}
+Trivial from result in exercise 7.
+
+\subsection{Exercise 10 (Partial Trace)}
+Let the system state be $\ket{\psi}=\qty(\ket{00}+\ket{11})/2$, the 
+density matrix writes
+\begin{align}
+\rho=\dyad{\psi}{\psi}=\frac{1}{2}\qty(\dyad{00}{00}+\dyad{11}{00}+
+\dyad{00}{11}+\dyad{11}{11}).
+\end{align}
+Now, tracing over systems $A$ one gets the reduced density matrix of system $A$
+as 
+\begin{align}
+\rho^A=\sum_{i=0}^1\matrixel{i^{(A)}}{\rho}{i^{(A)}},
+\end{align}
+where $\ket{i^{(A)}}$ denote the basis vectors (computational basis) of system $A$.
+Thus, following an anologous program for $\rho^B$ one gets
+\begin{align}
+\rho^A=\rho^B=\frac{1}{2}\qty(\dyad{0}{0}+\dyad{1}{1})=\frac{I}{2}.
+\end{align}
+
+\subsection{Exercise 11 (Local unitaries)}
+From local unitaries of the form $U\otimes V$ acting on $\ket{00}$ one only 
+gets separable states of the form $U\ket{0}\otimes V\ket{0}$, which, by definition,
+is not an entagled state. 
+
+\subsection{Exercise 12 (Reduced States of pure states)}
+\begin{align}
+\ket{\psi}=\ket{v}\otimes\ket{w}\\
+\rho=\dyad{v\otimes w}{v\otimes w}
+\end{align}
+If one constructs via appropiate rotations of the computational basis 
+a basis with $\ket{v\otimes w}$ one of its elements, then it is trivial that 
+reduced density matrices are
+\begin{align}
+\rho^A&=\dyad{v}{v} & \rho^B&=\dyad{w}{w}.
+\end{align}
+Both reduced density matrices satisfy the condition $\rho^2=\rho$, thus 
+they both are pure states.
+
+\subsection{Exercise 13 (Maximally entangled state)}\noindent
+From the maximally entangled state of a bipartite system you obtain 
+the maximally mixed state for both reduced density matrices. This means that
+you do not have any information at all of the reduced states, because there is 
+equal probability to measure the state $\ket{0}$ or $\ket{1}$.

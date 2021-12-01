@@ -1,0 +1,123 @@
+\section{Exercise sheet 3}
+\subsection{Exercise 1 (Hadamard test)}
+Mathematically, what is happening in the circuit is
+\begin{subequations}
+\begin{align}
+\qty(H\otimes\mathbbm{1})\qty(\dyad{0}{0}\otimes\mathbbm{1}+\dyad{1}{1}\otimes U)\qty(H\otimes \mathbbm{1})
+\Big[\ket{0}\otimes \ket{\psi}\Big]&=
+\qty(H\otimes\mathbbm{1})\qty(\dyad{0}{0}\otimes\mathbbm{1}+\dyad{1}{1}\otimes U)
+\Big[\frac{1}{\sqrt{2}}\qty(\ket{0}+\ket{1})\ket{\psi}\Big]\\
+&=\qty(H\otimes\mathbbm{1})\qty[\frac{1}{\sqrt{2}}\qty(\ket{0}\ket{\psi}+\ket{1}U\ket{\psi})]\\
+&=\frac{1}{\sqrt{2}}
+\qty(\ket{0}\qty(\mathbbm{1}+U)\ket{\psi}+
+	\ket{1}\qty(\mathbbm{1}-U)\ket{\psi})
+\end{align}
+\end{subequations}
+To find the probability the qubit $0$ in $\ket{0}$ is
+\begin{align}
+\matrixel{\psi'}{\qty(\dyad{0}{0}\otimes\mathbbm{1})}{\psi'}=
+	\frac{1}{4}\qty(2+\matrixel{\psi}{U}{\psi}+\matrixel{\psi}{U^{\dagger}}{\psi})
+\end{align}
+Now, noting that $\qty(\matrixel{\psi}{U}{\psi})^*=\matrixel{\psi}{U^{\dagger}}{\psi}$,
+\begin{align}
+p(0)=\matrixel{\psi'}{\qty(\dyad{0}{0}\otimes\mathbbm{1})}{\psi'}=
+	\frac{1}{2}\bigg(1+\Re \Big[\matrixel{\psi}{U}{\psi}\Big]\bigg).
+\end{align}
+
+\subsection{Exercise 2 (Error analysis)}
+
+\subsection{Exercise 3 (Useful equality)}\noindent
+The right-hand of the circuit equation in fig. 1(b) writes
+\begin{align}
+CNOT(0,1)\cdot CNOT(1,0)\cdot CNOT(0,1),
+\end{align}
+where $CNOT(c,t)$ is notation for the $CNOT$ gate with control qubit $c$
+and target qubit $t$. The action of the $CNOT$ gate over the computational 
+basis is $\ket{c}\ket{t}\mapsto\ket{c}\ket{t\oplus c}$ (with $\oplus$ sum
+mod 2). Furthermore,
+\begin{align}
+CNOT(0,1)&=
+\left(
+\begin{array}{cccc}
+ 1 & 0 & 0 & 0 \\
+ 0 & 1 & 0 & 0 \\
+ 0 & 0 & 0 & 1 \\
+ 0 & 0 & 1 & 0 \\
+\end{array}
+\right),&
+CNOT(1,0&)=
+\left(
+\begin{array}{cccc}
+ 1 & 0 & 0 & 0 \\
+ 0 & 0 & 0 & 1 \\
+ 0 & 0 & 1 & 0 \\
+ 0 & 1 & 0 & 0 \\
+\end{array}
+\right).
+\end{align}
+This exercised was done in Mathematica with the following code
+\begin{verbatim}
+(*Define CNOT(0,1), CNOT(1,0) and Swap*)
+MatrixForm[
+ CNOT0 = KroneckerProduct[M0, IdentityMatrix[2]] + 
+   KroneckerProduct[M1, Pauli[1]]]
+MatrixForm[
+ CNOT1 = KroneckerProduct[IdentityMatrix[2], M0] + 
+   KroneckerProduct[Pauli[1], M1]]
+MatrixForm[
+ Swap = {{1, 0, 0, 0}, {0, 0, 1, 0}, {0, 1, 0, 0}, {0, 0, 0, 1}}]
+(*Do matrix multiplication*)
+MatrixForm[CNOT0.CNOT1.CNOT0]
+CNOT0.CNOT1.CNOT0 == Swap
+Out:= True
+\end{verbatim}
+
+\subsection{Exercise 4 (Useful equality)}
+$SWAP$ gate may be written in Dirac notation as
+\begin{align}\label{eq:SWAP}
+SWAP=\dyad{00}{00}+\dyad{01}{10}+\dyad{10}{01}+\dyad{11}{11}.
+\end{align}
+It the follows,
+\begin{subequations}
+\begin{align}
+SWAP\Big[ \ket{\psi	}\otimes \ket{\phi}\Big]&=
+	SWAP\Big[ c_0b_0\ket{00}+c_0b_1\ket{01}+c_1b_0\ket{10}+c_1b_1\ket{11} \Big]\\
+&=c_0b_0\ket{00}+c_0b_1\ket{10}+c_1b_0\ket{01}+c_1b_1\ket{11}\\
+&=\big( b_0\ket{0}+b_1\ket{1} \big)c_0\ket{0}+
+	\big( b_0\ket{0}+b_1\ket{1} \big)c_1\ket{1}\\
+&=\big( b_0\ket{0}+b_1\ket{1} \big)\big( c_0\ket{0}+c_1\ket{1}\big)
+=\ket{\phi}\otimes\ket{\psi}.
+\end{align}
+\end{subequations}
+The form \eqref{eq:SWAP} of $SWAP$ gate was used.
+
+\subsection{Exercise 5 (SWAP test)}\noindent
+Writing in matrix form the circuit in fig. 1(d) and operating to get 
+the state $\ket{\Psi'}$ just before the measurement,
+\begin{subequations}
+\begin{align}
+\ket{\Psi'}&=\big( H\otimes\1_4 \big)	
+	\big( \dyad{0}{0}\otimes\1_4+\dyad{1}{1}\otimes SWAP \big)
+		\big(H\otimes\1_4 \big)\big[ \ket{0}\otimes\ket{\psi}\otimes\ket{\phi} \big]\\
+&=\big( H\otimes\1_4 \big)	
+	\big( \dyad{0}{0}\otimes\1_4+\dyad{1}{1}\otimes SWAP \big)
+		\frac{1}{\sqrt{2}}\bigg[ \big(\ket{0}+\ket{1} \big)\ket{\psi}\ket{\phi} \bigg]\\
+&=\big( H\otimes\1_4 \big)	
+	\frac{1}{\sqrt{2}}\bigg[ \ket{0}\dket{\psi}{\phi}+\ket{1}\dket{\phi}{\psi} \bigg]\\
+\ket{\Psi'}&=\frac{1}{2}\bigg[\big( \ket{0}+\ket{1} \big)\dket{\psi}{\phi} +
+	\big( \ket{0}-\ket{1} \big)\dket{\phi}{\psi} \bigg].
+\end{align}
+\end{subequations}
+Then, performing the measurement,
+\begin{subequations}
+\begin{align}
+\expval{\sigma_z}&=\matrixel{\Psi'}{\sigma_z}{\Psi'}\\
+&=\frac{1}{4}\Big( \braket{0\psi\phi}{0\psi\phi}+\braket{0\phi\psi}{0\psi\phi}
++\braket{0\psi\phi}{0\phi\psi}+\braket{0\phi\psi}{0\phi\psi}\\
+&\qquad
+ -\braket{1\psi\phi}{1\psi\phi}+\braket{1\phi\psi}{1\psi\phi}+
+\braket{1\psi\phi}{1\phi\psi}-\braket{1\phi\psi}{1\phi\psi}
+\Big)\\
+&=\abs{\braket{\phi}{\psi}}^2.
+\end{align}
+\end{subequations}

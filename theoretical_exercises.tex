@@ -1,0 +1,38 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel} \decimalpoint
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{bbm}
+\usepackage{float}
+
+\usepackage{physics}
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
+
+\usepackage{fancybox}
+\usepackage{colortbl}
+\usepackage{amsbsy}
+\usepackage[draft,inline,nomargin]{fixme} \fxsetup{theme=color}
+\FXRegisterAuthor{ja}{aja}{\color{black}\textbf{Respuestas}}
+
+\newcommand{\uv}[1]{\vb{\hat{#1}}}
+\newcommand{\points}[1]{\textcolor{red}{\text{(#1 puntos)}}}
+\newcommand{\dket}[2]{\ket{#1}\ket{#2}}
+\newcommand{\dbra}[2]{\bra{#1}\bra{#2}}
+\newcommand{\1}{\mathbbm{1}}
+
+\title{\textbf{Theoretical exercises}\\\vspace{2mm}
+\large{PWF Quantum Machine Learning}}
+\author{José Alfredo de León}
+\date{}
+\begin{document}
+\maketitle
+\tableofcontents
+
+\input{exercise_sheet_1.tex}
+\input{exercise_sheet_2.tex}
+\input{exercise_sheet_3.tex}
+
+\end{document}

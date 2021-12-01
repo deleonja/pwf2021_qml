@@ -1,0 +1,245 @@
+\section{Exercise sheet 1}
+\subsection*{Mathematica definitions}
+Several exercises were solved in Mathematica. Thus, the following definitions 
+where used troughout the exercises.
+\begin{verbatim}
+(*Commutator*)
+Comm[A_, B_] := A.B - B.A
+(*Anti-commutator*)
+AntiComm[A_, B_] := A.B + B.A
+
+(*Pauli matrices and tensor products of them*)
+Pauli[0] = Pauli[{0}] = {{1, 0}, {0, 1}};
+Pauli[1] = Pauli[{1}] = {{0, 1}, {1, 0}};
+Pauli[2] = Pauli[{2}] = {{0, -I}, {I, 0}};
+Pauli[3] = Pauli[{3}] = {{1, 0}, {0, -1}};
+Pauli[Indices_List] := KroneckerProduct @@ (Pauli /@ Indices);
+
+(*Computational basis in Dirac notation*)
+Ket[0] = {1, 0};
+Ket[1] = {0, 1};
+
+(*Rotation matrix in the Bloch sphere*)
+U[i_, \[Theta]_] := 
+ Cos[\[Theta]/2] IdentityMatrix[2] - I Sin[\[Theta]/2] Pauli[i]
+
+(*General 1-qubit state in Dirac notation*)
+Ket[\[Psi]] = \[Alpha] Ket[0] + \[Beta] Ket[1];
+\end{verbatim}
+
+\subsection{Exercise 1}\noindent 
+Proved with brute force on Mathematica.
+\subsubsection{a.}
+\begin{verbatim}
+Pauli[#].Pauli[#] == IdentityMatrix[2] & /@ Range[3]
+Out:={True, True, True}
+\end{verbatim}
+
+\subsubsection{b.}
+\begin{verbatim}
+Tr[Pauli[#]] & /@ Range[3]
+Out:={0, 0, 0}
+\end{verbatim}
+
+\subsubsection{c.}
+\begin{verbatim}
+(*Define Levi-civita symbol*)
+\[Epsilon] = Normal[LeviCivitaTensor[3]];
+Comm[Pauli[#[[1]]], Pauli[#[[2]]]] == 
+   2 I \[Epsilon][[#[[1]], #[[2]], #[[3]]]] Pauli[#[[3]]] & /@ 
+ Permutations[{1, 2, 3}]
+Out:={True, True, True, True, True, True}
+\end{verbatim}
+
+\subsubsection{d.}
+\begin{verbatim}
+AntiComm[Pauli[#[[1]]], Pauli[#[[2]]]] == 
+   2 I KroneckerDelta[#[[1]], #[[2]]] IdentityMatrix[2] & /@ 
+ Permutations[{1, 2, 3}]
+Out:={True, True, True, True, True, True}
+\end{verbatim}
+
+\subsection{Exercise 2}\noindent
+With Mathematica:
+\begin{verbatim}
+(*Denote Pauli[3] as Z (for convenience)*)
+Z = Pauli[3];
+Z.{1, 0} == {1, 0}
+Z.{0, 1} == -{0, 1}
+Out:=True
+Out:=True
+\end{verbatim}
+Nevertheless, it is instructive to do this exercise using Dirac notation as follows. The Pauli matrix
+$\sigma_z$ can be written as $\sigma_z=\dyad{0}{0}-\dyad{1}{1}$, then
+\begin{align}
+\sigma_z \ket{0}&=\qty(\dyad{0}{0}-\dyad{1}{1})\ket{0}=\ket{0}\\
+\sigma_z \ket{1}&=\qty(\dyad{0}{0}-\dyad{1}{1})\ket{1}=-\ket{1},
+\end{align}
+where orthogonality relation $\braket{i}{j}=\delta_{ij}$ has ben employed.
+
+\subsection{Exercise 3}\noindent
+Since this exercise is one of Dirac notation practice, it was proved 
+in Mathematica with the following code.
+\begin{verbatim}
+(*Define of ket psi in terms of azimuthal and polar angles*)
+\[Psi] = Cos[\[Theta]/2] Ket[0] + E^(I \[Phi]) Sin[\[Theta]/2] Ket[1]
+(*Outer product of psi*)
+MatrixForm[Outer[Times, \[Psi], Conjugate[\[Psi]]]]
+\end{verbatim}
+
+\subsection{Exercise 4}\noindent
+Recall that, given an operator $A$, $f(A)=\sum_if(\lambda_i)\dyad{\phi_i}{\phi_i}$,
+with $\lambda_i$ and $\ket{\phi_i}$ its eigenvalues and eigenvectors. Then, 
+\begin{align}
+e^{-i\theta\sigma/2}=\sum_{j}e^{-i\theta\lambda_j/2}\dyad{\phi_j}{\phi_j},
+\end{align}
+where $\qty{\ket{\phi_j}}$ is the eigenbasis of $\sigma$. Now, using the 
+Euler's formula $e^{\pm i\theta}=\cos \theta\pm i\sin\theta$, the fact that 
+all $\sigma$'s eigenvalues are $\lambda_{\pm}=\pm 1$, and the parity 
+of sine and cosine functions,
+\begin{subequations}
+\begin{align}
+\sum_{j}e^{-i\theta\lambda_j/2}\dyad{\phi_j}{\phi_j}&=
+\qty(\cos\qty(\frac{\theta}{2})-i\sin\qty(\frac{\theta}{2}))\dyad{\phi_+}{\phi_+}
++\qty(\cos\qty(\frac{\theta}{2})+i\sin\qty(\frac{\theta}{2}))\dyad{\phi_-}{\phi_-}\\
+&=\cos\qty(\frac{\theta}{2})\qty(\dyad{\phi_+}{\phi_+}+\dyad{\phi_-}{\phi_-})
+-i\sin\qty(\frac{\theta}{2})\qty(\dyad{\phi_+}{\phi_+}-\dyad{\phi_-}{\phi_-})\label{eq:ex4:almost}\\
+&=\cos\qty(\frac{\theta}{2})I-i\sin\qty(\frac{\theta}{2})\sigma,
+\end{align}
+\end{subequations}
+where we have used for the cosine and sine terms in \eqref{eq:ex4:almost}
+that $I=\sum_j\dyad{\phi_j}{\phi_j}$ for an orthonormal
+basis $\qty{\ket{\phi_j}}$, and the spectral theorem (recall that 
+$\lambda_{\pm}=\pm1$), respectively.
+
+\subsection{Exercise 5}
+\begin{verbatim}
+(*Definition of ket 0*)
+Ket[0] = {1, 0};
+(*Definition of rotation operator U*)
+U[i_, \[Theta]_] :=Cos[\[Theta]/2] IdentityMatrix[2] - I Sin[\[Theta]/2] Pauli[i]
+U[2, \[Pi]/2].Ket[0] == 1/Sqrt[2] (Ket[0] + Ket[1])
+Out:= True
+\end{verbatim}
+
+\begin{verbatim}
+(*Definition of function to construct tensor products of Pauli matrices*)
+Pauli[0] = Pauli[{0}] = {{1, 0}, {0, 1}};
+Pauli[1] = Pauli[{1}] = {{0, 1}, {1, 0}};
+Pauli[2] = Pauli[{2}] = {{0, -I}, {I, 0}};
+Pauli[3] = Pauli[{3}] = {{1, 0}, {0, -1}};
+Pauli[Indices_List] := KroneckerProduct @@ (Pauli /@ Indices);
+(*Denote Z to Pauli[3]*)
+Z = Pauli[3];
+(*Check that rotation of Z by U_y[pi/2] equals to X*)
+U[2, \[Pi]/2].Z.ConjugateTranspose[U[2, \[Pi]/2]] == Pauli[1]
+\end{verbatim}
+
+\subsection{Exercise 6}\noindent
+\subsubsection{a.}
+$U_y\qty(\frac{\pi}{2})$
+
+\subsubsection{b.}
+Note that the rotation is done counter-clockwise, $U_x\qty(-\frac{\pi}{2})$.
+
+\subsection{Exercise 7}
+\begin{verbatim}
+(*Define ket Psi*)
+Ket[\[Psi]] = \[Alpha] Ket[0] + \[Beta] Ket[1];
+(*Construct Rho by making the outer product of Psi with itself*)
+\[Rho] = Outer[Times, Ket[\[Psi]], Conjugate[Ket[\[Psi]]]]
+(*Check that <Z>=Tr(Rho.Z)*)
+Conjugate[Ket[\[Psi]]].Z.Ket[\[Psi]] == Tr[\[Rho].Z]
+Out:=True
+(*Check that <Z>=|alpha|^2-|beta|^2*)
+Conjugate[Ket[\[Psi]]].Z.Ket[\[Psi]] ==  Abs[\[Alpha]]^2 - Abs[\[Beta]]^2
+(*Check that Tr(Rho.Z)=|alpha|^2-|beta|^2*)
+Tr[\[Rho].Z] == Abs[\[Alpha]]^2 - Abs[\[Beta]]^2
+\end{verbatim}
+
+\subsection{Exercise 8}\noindent
+$\expval{X}=\expval{U_y^{\dagger}\qty(\frac{\pi}{2})ZU_y\qty(\frac{\pi}{2})}$
+One makes a rotation of the state $\ket{\psi}$ of $\pi/2$ about the $y$ axis and 
+then measures in the computational basis.
+
+\subsection{Exercise 9}\noindent
+Let us expand the state $\ket{\psi}$ in the Hamiltonian eigenbasis $\qty{\ket{E_i}}$
+as $\ket{\psi}=\sum_i\braket{E_i}{\psi}\ket{E_i}$, then
+\begin{subequations}
+\begin{align}
+\Tr \qty(\dyad{\psi}{\psi}H)
+&=\sum_{i,j}\braket{\phi_i}{\psi}\braket{\psi}{\phi_j}\Tr \qty(\dyad{E_i}{E_j}H)\\
+&=\sum_{i,j}\braket{\phi_i}{\psi}\braket{\psi}{\phi_j}\sum_k 
+\matrixel{E_k}{\qty(\dyad{E_i}{E_j}H)}{E_k}\\
+&=\sum_{i,j,k}\braket{\phi_i}{\psi}\braket{\psi}{\phi_j} \delta_{k,i}\delta_{j.k}E_k\\
+&=\sum_i\abs{\braket{\phi_i}{\psi}}^2 E_i,\label{eq:ex9}
+\end{align}
+\end{subequations}
+where the squared braket is real, and the eigenenergies $E_i$ too. Then, it is straightforward 
+that the sum \eqref{eq:ex9} is a real number.
+
+\subsection{Exercise 10}\noindent
+By means of a substitution $\ket{0}=\qty(c_{00}\ket{E_0}+c_{01}\ket{E_1})$
+and $\ket{1}=\qty(c_{10}\ket{E_0}+c_{11}\ket{E_1})$,
+\begin{subequations}
+\begin{align}
+\ket{\psi}&=a\qty(c_{00}\ket{E_0}+c_{01}\ket{E_1})+
+	b\qty(c_{10}\ket{E_0}+c_{11}\ket{E_1})\\
+\ket{\psi}&=\qty(a\,c_{00}+b\,c_{10})\ket{E_0}+
+	\qty(a\,c_{01}+b\,c_{11})\ket{E_1}.\label{eq:ex10}
+\end{align}
+\end{subequations}
+
+\subsection{Exercise 11}\noindent
+Writing down the density matrix of $\ket{\psi}$ in \eqref{eq:ex10}
+\begin{align}
+\dyad{\psi}{\psi}&=\qty(a\,c_{00}+b\,c_{10})\qty(a\,c_{00}+b\,c_{10})^*\dyad{E_0}{E_0}+\nonumber\\
+	&\hspace{5mm}\qty(a\,c_{00}+b\,c_{10})\qty(a\,c_{01}+b\,c_{11})^*\dyad{E_0}{E_1}+\nonumber\\ 
+		&\hspace{5mm}\qty(a\,c_{01}+b\,c_{11})\qty(a\,c_{00}+b\,c_{10})^*\dyad{E_1}{E_0}+\nonumber\\
+			&\hspace{5mm}\qty(a\,c_{01}+b\,c_{11})\qty(a\,c_{01}+b\,c_{11})^*\dyad{E_1}{E_1}.
+\end{align}
+Then, it follows 
+\begin{subequations}
+\begin{align}
+\Tr\qty[\dyad{\psi}{\psi}H]&=
+	\sum_{i=0}^1\matrixel{E_i}{\qty(\dyad{\psi}{\psi}H)}{E_i}\\
+\Tr\qty[\dyad{\psi}{\psi}H]&=\qty(a\,c_{00}+b\,c_{10})\qty(a\,c_{00}+b\,c_{10})^*E_0+
+		\qty(a\,c_{01}+b\,c_{11})\qty(a\,c_{01}+b\,c_{11})^*E_1.
+\end{align}
+\end{subequations}
+
+\subsection{Exercise 12}\noindent
+The density matrix $\rho$ of a system in a pure state $\ket{\psi}$ writes
+$\rho=\dyad{\psi}{\psi}$, then it follows
+\begin{align}
+\rho^2=\qty(\dyad{\psi}{\psi})\qty(\dyad{\psi}{\psi})=\dyad{\psi}{\psi}=\rho,
+\end{align}
+where the orthonormality condition $\braket{\psi}{\psi}=1$ has been used.
+
+
+\subsection{Exercise 13}\noindent
+To find the eigenvalues of density matrix
+\begin{align}
+\rho=\frac{1}{2}\qty(I+\vec r\cdot\vec\sigma)
+\end{align}
+one solves the equation $\det\qty(I-\lambda\rho)=0$ for $\lambda$ and finds
+\begin{align}
+\lambda_{\pm}=\frac{1}{2}\qty(1\pm\sqrt{r_x^2+r_y^2+r_z^2}).
+\end{align}
+Now, using the requirement $\Tr\qty(\rho^2)=1$ for $\rho$ to be pure, we find 
+that an equivalent condition in terms of the Bloch vector is that $\vec r$ must 
+be of unit lenght. When $\abs{\vec r}<1$, the system is an mixed state.
+
+\subsection{Exercise 14}\noindent
+Using the general form of a qubit density matrix
+\begin{align}
+\rho=\mqty(a&b\\b^*&c)
+\end{align}
+one finds the Bloch component, via $r_i=\Tr \qty(\rho\,\sigma_i)$,
+\begin{subequations}
+\begin{align}
+r_x&=2\Re(b),\\
+r_y&=2i\Re(b),\\
+r_z&=a-c.
+\end{align}
+\end{subequations}
