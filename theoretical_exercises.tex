@@ -1,13 +1,22 @@
 \documentclass[10pt,a4paper]{article}
 \usepackage[utf8]{inputenc}
-\usepackage[spanish]{babel} \decimalpoint
+\usepackage{authblk}
+\usepackage[english]{babel}% \decimalpoint
 \usepackage{amsmath}
 \usepackage{amsfonts}
 \usepackage{amssymb}
 \usepackage{graphicx}
 \usepackage{bbm}
 \usepackage{float}
-
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    filecolor=magenta,      
+    urlcolor=blue,
+    pdftitle={Overleaf Example},
+    pdfpagemode=FullScreen,
+    }
 \usepackage{physics}
 \usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
 
@@ -24,11 +33,20 @@
 \newcommand{\1}{\mathbbm{1}}
 
 \title{\textbf{Theoretical exercises}\\\vspace{2mm}
-\large{PWF Quantum Machine Learning}}
-\author{José Alfredo de León}
-\date{}
+\large{PWF 2021 Quantum Machine Learning}}
+\author[1]{José Alfredo de León\thanks{\href{mailto:deleongarrido.jose@gmail.com}{deleongarrido.jose@gmail.com}}}
+\affil[1]{Escuela de Ciencias Físicas y Matemáticas - USAC, Guatemala}
+\date{\today}
 \begin{document}
 \maketitle
+\begin{abstract}
+In this manuscript I present my solutions to the theoretical exercises of the 
+PWF 2021 course ``Quantum Machine Learning'' imparted by Marco Cerezo.
+Mathematica was used for several exercises and the Notebooks (one for each
+of the exercise sheets) were uploaded to a public github repository 
+(\href{https://github.com/deleonja/pwf2021_qml}{click here}) for anyone 
+to access it and the rest of the material I used for the course.
+\end{abstract}
 \tableofcontents
 
 \input{exercise_sheet_1.tex}

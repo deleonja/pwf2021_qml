@@ -1,7 +1,10 @@
-\section{Exercise sheet 1}
 \subsection*{Mathematica definitions}
-Several exercises were solved in Mathematica. Thus, the following definitions 
-where used troughout the exercises.
+Several exercises were solved in Mathematica. The following definitions 
+where used troughout the Notebooks used (one for each exercise sheet).
+I encourage you to go the github repository \href{https://github.com/deleonja/pwf2021_qml}
+{github.com/deleonja/pwf2021\_qml} I created for anyone to find the Mathematica
+notebooks, Tex files, and Jupyter notebook where the exercises of the course 
+where solved by me.
 \begin{verbatim}
 (*Commutator*)
 Comm[A_, B_] := A.B - B.A
@@ -27,7 +30,9 @@ U[i_, \[Theta]_] :=
 Ket[\[Psi]] = \[Alpha] Ket[0] + \[Beta] Ket[1];
 \end{verbatim}
 
-\subsection{Exercise 1}\noindent 
+\section{Exercise sheet 1}
+
+\subsection{Exercise 1 (Properties of the Pauli Matrices)}\noindent 
 Proved with brute force on Mathematica.
 \subsubsection{a.}
 \begin{verbatim}
@@ -59,7 +64,7 @@ AntiComm[Pauli[#[[1]]], Pauli[#[[2]]]] ==
 Out:={True, True, True, True, True, True}
 \end{verbatim}
 
-\subsection{Exercise 2}\noindent
+\subsection{Exercise 2 (Rotations on the Bloch Sphere)}\noindent
 With Mathematica:
 \begin{verbatim}
 (*Denote Pauli[3] as Z (for convenience)*)
@@ -77,7 +82,7 @@ $\sigma_z$ can be written as $\sigma_z=\dyad{0}{0}-\dyad{1}{1}$, then
 \end{align}
 where orthogonality relation $\braket{i}{j}=\delta_{ij}$ has ben employed.
 
-\subsection{Exercise 3}\noindent
+\subsection{Exercise 3 (Density matrix)}\noindent
 Since this exercise is one of Dirac notation practice, it was proved 
 in Mathematica with the following code.
 \begin{verbatim}
@@ -87,7 +92,7 @@ in Mathematica with the following code.
 MatrixForm[Outer[Times, \[Psi], Conjugate[\[Psi]]]]
 \end{verbatim}
 
-\subsection{Exercise 4}\noindent
+\subsection{Exercise 4 (Rotations on the Bloch Sphere)}\noindent
 Recall that, given an operator $A$, $f(A)=\sum_if(\lambda_i)\dyad{\phi_i}{\phi_i}$,
 with $\lambda_i$ and $\ket{\phi_i}$ its eigenvalues and eigenvectors. Then, 
 \begin{align}
@@ -112,7 +117,7 @@ that $I=\sum_j\dyad{\phi_j}{\phi_j}$ for an orthonormal
 basis $\qty{\ket{\phi_j}}$, and the spectral theorem (recall that 
 $\lambda_{\pm}=\pm1$), respectively.
 
-\subsection{Exercise 5}
+\subsection{Exercise 5 (Rotations about the y-axis)}
 \begin{verbatim}
 (*Definition of ket 0*)
 Ket[0] = {1, 0};
@@ -135,14 +140,14 @@ Z = Pauli[3];
 U[2, \[Pi]/2].Z.ConjugateTranspose[U[2, \[Pi]/2]] == Pauli[1]
 \end{verbatim}
 
-\subsection{Exercise 6}\noindent
+\subsection{Exercise 6 (Change of basis)}\noindent
 \subsubsection{a.}
 $U_y\qty(\frac{\pi}{2})$
 
 \subsubsection{b.}
 Note that the rotation is done counter-clockwise, $U_x\qty(-\frac{\pi}{2})$.
 
-\subsection{Exercise 7}
+\subsection{Exercise 7 (Expectation value)}
 \begin{verbatim}
 (*Define ket Psi*)
 Ket[\[Psi]] = \[Alpha] Ket[0] + \[Beta] Ket[1];
@@ -157,12 +162,12 @@ Conjugate[Ket[\[Psi]]].Z.Ket[\[Psi]] ==  Abs[\[Alpha]]^2 - Abs[\[Beta]]^2
 Tr[\[Rho].Z] == Abs[\[Alpha]]^2 - Abs[\[Beta]]^2
 \end{verbatim}
 
-\subsection{Exercise 8}\noindent
+\subsection{Exercise 8 (Expectation value and change of basis)}\noindent
 $\expval{X}=\expval{U_y^{\dagger}\qty(\frac{\pi}{2})ZU_y\qty(\frac{\pi}{2})}$
 One makes a rotation of the state $\ket{\psi}$ of $\pi/2$ about the $y$ axis and 
 then measures in the computational basis.
 
-\subsection{Exercise 9}\noindent
+\subsection{Exercise 9 (Expectation values)}\noindent
 Let us expand the state $\ket{\psi}$ in the Hamiltonian eigenbasis $\qty{\ket{E_i}}$
 as $\ket{\psi}=\sum_i\braket{E_i}{\psi}\ket{E_i}$, then
 \begin{subequations}
@@ -178,7 +183,7 @@ as $\ket{\psi}=\sum_i\braket{E_i}{\psi}\ket{E_i}$, then
 where the squared braket is real, and the eigenenergies $E_i$ too. Then, it is straightforward 
 that the sum \eqref{eq:ex9} is a real number.
 
-\subsection{Exercise 10}\noindent
+\subsection{Exercise 10 (Change of basis)}\noindent
 By means of a substitution $\ket{0}=\qty(c_{00}\ket{E_0}+c_{01}\ket{E_1})$
 and $\ket{1}=\qty(c_{10}\ket{E_0}+c_{11}\ket{E_1})$,
 \begin{subequations}
@@ -190,7 +195,7 @@ and $\ket{1}=\qty(c_{10}\ket{E_0}+c_{11}\ket{E_1})$,
 \end{align}
 \end{subequations}
 
-\subsection{Exercise 11}\noindent
+\subsection{Exercise 11 (Change of basis and expectation value)}\noindent
 Writing down the density matrix of $\ket{\psi}$ in \eqref{eq:ex10}
 \begin{align}
 \dyad{\psi}{\psi}&=\qty(a\,c_{00}+b\,c_{10})\qty(a\,c_{00}+b\,c_{10})^*\dyad{E_0}{E_0}+\nonumber\\
@@ -208,7 +213,7 @@ Then, it follows
 \end{align}
 \end{subequations}
 
-\subsection{Exercise 12}\noindent
+\subsection{Exercise 12 (Mixed States)}\noindent
 The density matrix $\rho$ of a system in a pure state $\ket{\psi}$ writes
 $\rho=\dyad{\psi}{\psi}$, then it follows
 \begin{align}
@@ -217,7 +222,7 @@ $\rho=\dyad{\psi}{\psi}$, then it follows
 where the orthonormality condition $\braket{\psi}{\psi}=1$ has been used.
 
 
-\subsection{Exercise 13}\noindent
+\subsection{Exercise 13 (Mixed States 1)}\noindent
 To find the eigenvalues of density matrix
 \begin{align}
 \rho=\frac{1}{2}\qty(I+\vec r\cdot\vec\sigma)
@@ -230,7 +235,7 @@ Now, using the requirement $\Tr\qty(\rho^2)=1$ for $\rho$ to be pure, we find
 that an equivalent condition in terms of the Bloch vector is that $\vec r$ must 
 be of unit lenght. When $\abs{\vec r}<1$, the system is an mixed state.
 
-\subsection{Exercise 14}\noindent
+\subsection{Exercise 14 (Mixed States 2)}\noindent
 Using the general form of a qubit density matrix
 \begin{align}
 \rho=\mqty(a&b\\b^*&c)
