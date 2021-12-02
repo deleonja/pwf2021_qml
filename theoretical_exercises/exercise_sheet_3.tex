@@ -24,7 +24,7 @@ p(0)=\matrixel{\psi'}{\qty(\dyad{0}{0}\otimes\mathbbm{1})}{\psi'}=
 	\frac{1}{2}\bigg(1+\Re \Big[\matrixel{\psi}{U}{\psi}\Big]\bigg).
 \end{align}
 
-\subsection{Exercise 2 (Error analysis)}
+\subsection{Exercise 2 (Error analysis) \textcolor{red}{falta}}
 
 \subsection{Exercise 3 (Useful equality)}\noindent
 The right-hand of the circuit equation in fig. 1(b) writes
@@ -171,3 +171,69 @@ e^{-i\theta_j\sigma_{\mu}^j/2}W_j\ldots
 	\prod_{j\le k}e^{-i\theta_j\sigma_{\mu}^j/2}W_j.
 \end{align}
 \end{subequations}
+
+\subsection{Exercise 9 (Parameter shift rule) \textcolor{red}{falta}}
+
+
+\subsection{Exercise 10 (Noisy states are quantum states)}
+\begin{align}
+\Tr\bigg[\mathcal{D}(\rho) \bigg]&=p\Tr \big( \rho \big)+
+	\frac{\qty(1-p)}{2^n}\Tr \big( \1 \big)\\
+&=p\qty(1)+\frac{\qty(1-p)}{2^n}\qty(2^n)=1.
+\end{align}
+
+\begin{align}
+\matrixel{x}{\bigg( p\rho+\frac{1-p}{2^n}\1\bigg)}{x}=p\matrixel{x}{\rho}{x}+
+	\frac{1-p}{2^n}\matrixel{x}{\1}{x}\geq 0\quad \forall \ket{x}\in \mathcal{H}.
+\end{align}
+
+\subsection{Exercise 11 (Noisy states are mixed)}
+Let us first calculate $(\rho')^2$m
+\begin{align}
+(\rho')^2=\bigg( \mathcal{D}(\rho) \bigg)^2&=
+%	\bigg( p\rho+\frac{1-p}{2^n}\1\bigg)	\bigg( p\rho+\frac{1-p}{2^n}\1\bigg)=
+		p^2\rho^2+\frac{\qty(p-p^2)}{2^{n-1}}\rho+\qty(\frac{\qty(1-p)}{2^n})^2\1.
+\end{align}
+Taking the trace of the final state, 
+\begin{align}
+%&=\qty(p^2+\frac{\qty(p-p^2)}{2^{n-1}})\Tr(\rho)+\qty(\frac{\qty(1-p)}{2^n})^2\1\\
+\Tr\bigg[\bigg( \mathcal{D}(\rho) \bigg)^2\bigg]&=
+	p^2+2\frac{\qty(p-p^2)}{2^{n}}+\qty(\frac{\qty(1-p)}{2^n})^22^n=
+		p^2+\frac{1-p^2}{2^n}.
+\end{align}
+Now, let us evaluate the extreme values of $p$ ($p=0,1$),
+\begin{align}
+\underline{p=0}: & \quad& \underline{p=1}: & \quad &\nonumber\\
+& \Tr\bigg[\bigg( \mathcal{D}(\rho) \bigg)^2\bigg]=\frac{1}{2^n}, &
+& \Tr\bigg[\bigg( \mathcal{D}(\rho) \bigg)^2\bigg]=1.
+\end{align}
+Then, it follows 
+\begin{align}
+\frac{1}{2^n}\leq \Tr\bigg[\bigg( \mathcal{D}(\rho) \bigg)^2\bigg]\leq 1.
+\end{align}
+Where the pure condition holds only when the channel $\mathcal{D}$ reduces 
+to the trivial map $\1$. Thus, the depolarizing channel maps pure states to 
+mixed states.
+\subsection{Exercise 12 (Multiple noisy channels)}
+Let us prove this by induction. The equation clearly holds for $L=1$
+\begin{align}
+\D\qty[\rho]=p\rho+\qty(1-p)\1/2^n.
+\end{align}
+Assuming the equation holds for $L=k$
+\begin{align}
+\underbrace{\qty(\D\circ\ldots\circ\D)}_{k\,\text{times}}\qty[\rho]=p^k\rho+\qty(1-p^k)\1/2^n.
+\end{align}
+Then
+\begin{subequations}
+\begin{align}
+\underbrace{\qty(\D\circ\ldots\circ\D)}_{k+1\,\text{times}}\qty[\rho]&=
+	p\qty(p^k\rho+\qty(1-p^k)\1/2^n)+\qty(1-p)\1/2^n\\
+%&=p^{k+1}\rho+\qty(p-p^{k+1})\1/2^n+\qty(1-p)\1/2^n\\
+&=p^{k+1}\rho+\qty(1-p^{k+1})\1/2^n.
+\end{align}
+\end{subequations}
+Thus, it is clear that 
+\begin{align}
+\underbrace{\qty(\D\circ\ldots\circ\D)}_{L\,\text{times}}\qty[\rho]=\rho'=
+	p^{L}\rho+\qty(1-p^{L})\1/2^n.
+\end{align}
