@@ -1,4 +1,10 @@
-# 2021 PWF "Quantum machine learning" course
-Exercises solved of the 2021 PWF course "Quantum Machine Learning". 
+## __2021 ICTP-PWF course "Quantum machine learning"__
+### __Author:__José Alfredo de León
 
-To see the manuscript of solutions of the theoretical exercises [click here](https://drive.google.com/drive/folders/17xSlCGaw-tc5OacKCEGLR6g0IozpY1Xj?usp=sharing) to fo the Google Drive folder with the PDF file "theoreical_exercises.pdf".
+##### Repository's description:
+Solutions of the theoretical and practical exercises of the Quantum Machine Learning course. See the assignment sheets [here](https://drive.google.com/drive/folders/1zpPSu8cwVR6TyY89qVWsD0z9pTTNLYc8?usp=sharing).
+
+##### What you will find in this repository:
+1. Tex files of the manuscript with my solutions to the theoretical exercises. Main Tex file is 'theoretical_exercises.tex'. For the PDF of the manuscript [click here](https://drive.google.com/file/d/1rKT29VPIzJ53qi8QGrLxWgGs0A0IJN4i/view?usp=sharing).  
+2. Mathematica notebooks used to solve selected theoretical exercises. 
+3. Jupyter notebook with my solutions to the practical exercises. 
